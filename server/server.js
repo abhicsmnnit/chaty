@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
     socket.on('createMessage', (message) => {
         console.log('createMessage:', message);
         
-        // Send a newMessage event to everyone
+        // Send a newMessage event to everyone (including the current connection)
         io.emit('newMessage', generateMessage(message.from, message.text));
     });
 });
