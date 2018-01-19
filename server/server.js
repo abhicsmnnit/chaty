@@ -18,6 +18,16 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Client disconnected');
     });
+    
+    socket.on('createMessage', (message) => {
+        console.log('New message:', message);
+    });
+    
+    socket.emit('newMessage', {
+        from: 'abhinav',
+        text: 'Hare Krsna!',
+        createdAt: new Date().toLocaleDateString()
+    });
 });
 
 
