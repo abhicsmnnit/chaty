@@ -4,6 +4,8 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const { generateMessage } = require('./message/message');
+
 const publicPath = path.join(__dirname, '../public');
 
 const app = express();
@@ -16,18 +18,10 @@ io.on('connection', (socket) => {
     console.log('New connection accepted');
     
     // Send a newMessage event to the connected user
-    socket.emit('newMessage', {
-        from: 'Admin',
-        text: 'Welcome to Chaty!',
-        createdAt: new Date().getTime()
-    });
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to Chaty!'));
 
     // Send a newMessage event to everyone except the connected user
-    socket.broadcast.emit('newMessage', {
-        from: 'Admin',
-        text: 'A new user joined',
-        createdAt: new Date().getTime()
-    });
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user joined!'));
     
     socket.on('disconnect', () => {
         console.log('Client disconnected');
@@ -37,15 +31,9 @@ io.on('connection', (socket) => {
         console.log('createMessage:', message);
         
         // Send a newMessage event to everyone
-        io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
-        });
+        io.emit('newMessage', generateMessage(message.from, message.text));
     });
 });
-
-
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
