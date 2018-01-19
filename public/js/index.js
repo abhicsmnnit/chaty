@@ -11,8 +11,3 @@ socket.on('disconnect', () => {
 socket.on('newMessage', (message) => {
     console.log('New Message:', message);
 });
-
-socket.emit('createMessage', {
-    from: 'abhinav',
-    text: 'Hare Rama!'
-});
