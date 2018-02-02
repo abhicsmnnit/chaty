@@ -39,6 +39,12 @@ jQuery('#message-form').on('submit', (e) => {
 
 jQuery('#send-location').on('click', () => {
     if(!navigator.geolocation) {
+        socket.emit('createMessage', {
+            from: 'User',
+            text: 'No location'
+        }, () => {
+    
+        });
         return alert('Geolocation not supported!');
     }
 
@@ -49,6 +55,11 @@ jQuery('#send-location').on('click', () => {
            longitude: position.coords.longitude
         });
     }, () => {
-        alert('Unable to fetch location');
+        socket.emit('createMessage', {
+            from: 'User',
+            text: 'No location'
+        }, () => {
+    
+        });
     });
 });
