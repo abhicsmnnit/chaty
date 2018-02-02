@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const { generateMessage } = require('./message/message');
+const { generateMessage, generateLocationMessage } = require('./message/message');
 
 const publicPath = path.join(__dirname, '../public');
 
@@ -32,6 +32,13 @@ io.on('connection', (socket) => {
         
         // Send a newMessage event to everyone (including the current connection)
         io.emit('newMessage', generateMessage(message.from, message.text));
+    });
+
+    socket.on('createLocationMessage', (coords) => {
+        console.log('createLocationMessage:', coords);
+        
+        // Send a newLocationMessage event to everyone (including the current connection)
+        io.emit('newLocationMessage', generateLocationMessage('User', coords.latitude, coords.longitude));
     });
 });
 
