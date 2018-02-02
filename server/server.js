@@ -27,11 +27,12 @@ io.on('connection', (socket) => {
         console.log('Client disconnected');
     });
     
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
         console.log('createMessage:', message);
         
         // Send a newMessage event to everyone (including the current connection)
         io.emit('newMessage', generateMessage(message.from, message.text));
+        callback();
     });
 
     socket.on('createLocationMessage', (coords) => {
