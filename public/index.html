@@ -2,16 +2,28 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Chaty - Welcome Page</title>
 </head>
-<body>
-    <p>Welcome to Chaty!</p>
-    <form id="message-form">
-        <input name="message" type="text" placeholder="Message" />
-        <button>Send</button>
-    </form>
-    <button id="send-location">Send Location</button>
-    <ol id="messages"></ol>
+<body class="chat">
+    <!-- <p>Welcome to Chaty!</p> -->
+    <div class="chat__sidebar">
+        <h3>People</h3>
+        <div id="users"></div>
+    </div>
+
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"></ol>
+        
+        <div class="chat__footer">
+            <form id="message-form">
+                <input name="message" type="text" placeholder="Message" />
+                <button>Send</button>
+            </form>
+            <button id="send-location">Send Location</button>
+        </div>
+    </div>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/lib/jquery-3.2.1.min.js"></script>
     <script src="/js/index.js"></script>
