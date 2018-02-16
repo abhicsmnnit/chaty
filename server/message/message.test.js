@@ -18,7 +18,7 @@ describe('generateLocationMessage', () => {
         const from = 'Some user';
         const latitude = 1.2;
         const longitude = 1.3;
-        const url = `https://google.com/maps?q=${latitude},${longitude+1}`;
+        const url = `https://google.com/maps?q=${latitude},${longitude}`;
 
         const message = generateLocationMessage(from, latitude, longitude);
 
