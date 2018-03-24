@@ -9,22 +9,30 @@ socket.on('disconnect', () => {
 });
 
 socket.on('newMessage', (message) => {
-    console.log('New Message:', message);
     const timestamp = moment(message.createdAt).format('h:mm a');
-    const element = jQuery('<li></li>');
-    element.text(`${message.from} ${timestamp}: ${message.text}`);
-    jQuery('#messages').append(element);
+
+    const template = jQuery('#message-template').html();
+    const html = Mustache.render(template, {
+        text: message.text,
+        from: message.from,
+        createdAt: timestamp
+    });
+
+    jQuery('#messages').append(html);
 });
 
 socket.on('newLocationMessage', (message) => {
     console.log('Location Message Received!', message);
     const timestamp = moment(message.createdAt).format('h:mm a');
-    const li = jQuery('<li></li>');
-    const a = jQuery(`<a target="_blank">My current location</a>`);
-    li.text(`${message.from} ${timestamp}: `);
-    a.attr('href', message.url);
-    li.append(a);
-    jQuery('#messages').append(li);
+
+    const template = jQuery('#location-message-template').html();
+    const html = Mustache.render(template, {
+        text: message.url,
+        from: message.from,
+        createdAt: timestamp
+    });
+    
+    jQuery('#messages').append(html);
 });
 
 jQuery('#message-form').on('submit', (e) => {
