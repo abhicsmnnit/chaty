@@ -74,10 +74,9 @@ socket.on('newLocationMessage', (message) => {
 
 jQuery('#message-form').on('submit', (e) => {
     e.preventDefault();
-    
+
     const messageTextbox = jQuery('[name=message]');
     socket.emit('createMessage', {
-        from: 'User',
         text: messageTextbox.val()
     }, () => {
         messageTextbox.val('');
@@ -86,7 +85,7 @@ jQuery('#message-form').on('submit', (e) => {
 
 const locationButton = jQuery('#send-location');
 locationButton.on('click', () => {
-    if(!navigator.geolocation) {
+    if (!navigator.geolocation) {
         return alert('Geolocation not supported!');
     }
 
